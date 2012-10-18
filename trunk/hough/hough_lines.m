@@ -1,23 +1,35 @@
 %Author: Manuel Kröter
 
-function [ final_points ] = hough_lines( img, angle_start, angle_end )
+%function [ final_points ] = hough_lines( img, angle_start, angle_end)
+function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels, max_pixels )
 %First try with Hough Transformation to detect lines!
-%Simplest version, does not consider stuff like minimal line length oder
-%connectivity
+%Simplest version, does not consider connectivity of points!!
+%Its hard to detect horizontal lines without using connectivity
+%There are always a lot of pixels in a line of text horizontally...
 
-%input is an aleady thinned black white image
-%and the start + end angles, start < end
+%Input: 
+%- aleady thinned black white image
+%- start + end angles in degrees, start < end (angle of the corresponding normal!!)
+%- minimum and maximum pixels on the line, when there are more or less pixels, the corresponding line is not detected
 
-%output is the hough accumulator
-%columns = degrees from 1 to 180 (Grad der Normalen der Gerade zur X-Achse)
-%rows = distance to origin, distance 0 is in the middle (e.g. entries at row/2 are lines through the origin)
-%origin of the input image is also considered in the center of the image.
+%Output:
+%- Matrix containing x and y points of detected lines
+%- Rows = Points
+%- 1.Column x, 2.Column y 
+
+%ATTENTION: The returned points MAY NOT LIE on the actual line segment!
+%Die gelieferten Punkte sind Lotfußpunkte der Normalen (der gesuchten Geraden), welche zum Ursprung zeigt
+
 
 
     if angle_end<=angle_start
         disp 'Start angle has to be bigger than end angle';
        return; 
     end
+%     if min_pixels>=max_pixels || min_pixels<0 || max_pixels<0
+%         disp 'Error. Wrong parameter values.';
+%        return; 
+%     end
     
     total_degrees = angle_end-angle_start+1;
 
@@ -26,7 +38,6 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end )
     
 
     max_d = sqrt((height/2)^2 + (width/2)^2);
-    %min_d = -max_d;
     houghRaum = zeros(ceil(2*max_d),total_degrees);
     
     for x=1:width
@@ -63,7 +74,14 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end )
     
 
     temp = houghRaum;
-    temp(temp<m)=0; %evtl nicht alles wegschneiden, puffer lassen zu maximum
+    
+  %  temp(temp<min_pixels)=0;
+  %  temp(temp>max_pixels)=0;
+    
+    %nur die Gerade mit den meisten Punkte wird gesucht
+     temp(temp<m)=0; 
+    
+    
     [d alpha] = find(temp);
     
     d = d - max_d - 1;
@@ -81,7 +99,7 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end )
     for i=2:size(points,1)
         insert = 1;
         for j=1:size(final_points,1)
-            if abs(sqrt(final_points(j,1)^2+final_points(j,2)^2)-sqrt(points(i,1)^2+points(i,2)^2))<2
+            if abs(sqrt(final_points(j,1)^2+final_points(j,2)^2)-sqrt(points(i,1)^2+points(i,2)^2))<3 %which threshold distance?
                 insert = 0;
             end
         end
