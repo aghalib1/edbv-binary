@@ -1,8 +1,10 @@
 %Author: Manuel Kröter
 
-%function [ final_points ] = hough_lines( img, angle_start, angle_end)
-function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels, max_pixels )
-%First try with Hough Transformation to detect lines!
+function [ final_points ] = hough_lines( img, angle_start, angle_end)
+%function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels, max_pixels )
+
+% Hough Transformation to detect lines!
+
 %Simplest version, does not consider connectivity of points!!
 %Its hard to detect horizontal lines without using connectivity
 %There are always a lot of pixels in a line of text horizontally...
@@ -26,8 +28,8 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels
         disp 'Start angle has to be bigger than end angle';
        return; 
     end
-%     if min_pixels>=max_pixels || min_pixels<0 || max_pixels<0
-%         disp 'Error. Wrong parameter values.';
+%     if min_pixels>max_pixels || min_pixels<0 || max_pixels<0
+%         disp 'Error. Wrong pixel parameters.';
 %        return; 
 %     end
     
@@ -66,23 +68,21 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels
     end
     
     
-    m = max(houghRaum(:));  %could also be a user input (how many pixels have to be on the line to be considered as a result line)
+    m = max(houghRaum(:));
     
+    %Comment the next two lines when using the function in final script
     %scale the values to 0-1 to show the result as an image
     scaledHough = double(houghRaum./m);
     imshow(scaledHough);
     
-
-    temp = houghRaum;
-    
   %  temp(temp<min_pixels)=0;
   %  temp(temp>max_pixels)=0;
     
-    %nur die Gerade mit den meisten Punkte wird gesucht
-     temp(temp<m)=0; 
-    
-    
-    [d alpha] = find(temp);
+    %currently only these lines with the maximum amount of points on it
+    %will be returned as a result
+     houghRaum(houghRaum<m)=0; 
+     
+    [d alpha] = find(houghRaum);
     
     d = d - max_d - 1;
     alpha = alpha-1+angle_start;
