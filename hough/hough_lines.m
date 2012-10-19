@@ -5,12 +5,14 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end)
 
 % Hough Transformation to detect lines!
 
+% Use angle around 0 to detect ones, e.g. -5 to 5
+
 %Simplest version, does not consider connectivity of points!!
 %Its hard to detect horizontal lines without using connectivity
 %There are always a lot of pixels in a line of text horizontally...
 
 %Input: 
-%- aleady thinned black white image
+%- aleady thinned black white image, foreground is white
 %- start + end angles in degrees, start < end (angle of the corresponding normal!!)
 %- minimum and maximum pixels on the line, when there are more or less pixels, the corresponding line is not detected
 
@@ -87,8 +89,9 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end)
     d = d - max_d - 1;
     alpha = alpha-1+angle_start;
     
-    x = round(cosd(alpha).*d)+round(width/2);  %d and alpha always same size???
+    x = round(cosd(alpha).*d)+round(width/2);
     y = (-round(sind(alpha).*d))+round(height/2);
+    
     
     
     %TEMPORARY, Should be improved
@@ -101,6 +104,8 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end)
         for j=1:size(final_points,1)
             if abs(sqrt(final_points(j,1)^2+final_points(j,2)^2)-sqrt(points(i,1)^2+points(i,2)^2))<3 %which threshold distance?
                 insert = 0;
+                final_points(j,1) = (final_points(j,1)+points(i,1))/2;
+                final_points(j,2) = (final_points(j,2)+points(i,2))/2;
             end
         end
         if insert == 1
