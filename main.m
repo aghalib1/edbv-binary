@@ -11,7 +11,6 @@ clc;
 
 disp('Bilder einlesen')
 A=getPictures;
-A
 %jedes Bild analysieren
 for i = 1 : size( A, 1 )
     if ~isempty(A(i,1))
