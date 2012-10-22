@@ -6,35 +6,27 @@ function [ ] = analyze(picture,filename)
 %ANALYZE Summary of this function goes here
 %   Detailed explanation goes here
 picture=picture{1};%da als cell übergeben
-disp('Analyzing ...');
+disp('Preprocessing');
 
-%zurzeit große testbilder etwas verkleinern
-picture = imresize(picture,.5,'bicubic');
+% in Binärblid umwandeln
+picture=im2bw(picture) %ACHTUNG! NICHT ERLAUBTE METHODE im2bw
+picture=imcomplement(picture); %ACHTUNG! NICHT ERLAUBTE METHODE imcomplement
+% thinning
 
- subplot(1,2,1);imshow(picture); title(filename{1})
- 
- %in ein binärbild umwandeln
- threshold=graythresh ( picture );
- blackwhite = im2bw( picture , threshold );
- subplot(1,2,2);imshow(blackwhite); title('threshold'+threshold)
- figure;
-        
- 
-        %zur darstellung wie man Filter anwendet:
-        %Wende den Sobel Filter auf das Original und das 16x16 Bild an
-        SobX = [ -1 0 1; -2 0 2; -1 0 1 ]; % Filterkerne 
-        SobY = [ 1 2 1; 0 0 0; -1 -2 -1]; % * 1/4 weil das Bild sonst zu intensiv werden würde
+disp('HoughTransformation');
+path('hough',path);
+figure();
+zeros=hough_circles(picture,4.8,8)
+ones=hough_lines(picture,-5,5)
+plus=hough_plus(picture, 5, 1)
 
-        % Kantenbild des kleinen Walters
-        GxP = imfilter(blackwhite, SobX); % Vertikale Kanten
-        GyP = imfilter(blackwhite, SobY); % Horizontale Kanten
-        GxyP = abs(GxP) + abs(GyP); % die Kombination aus beiden
-        subplot(2,2,1); imshow(GxP); title('Vertikale Kanten');
-        subplot(2,2,2); imshow(GyP); title('Horizontale Kanten');
-        subplot(2,2,3); imshow(GxyP); title('Kombination der beiden');
-        figure;
 
-        
+disp('Calculating');
+%zeros ones und plus auswerten
+%marker setzen
+
+
+
  
 end
 

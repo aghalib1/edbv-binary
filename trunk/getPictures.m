@@ -3,13 +3,14 @@
 
 
 function [ A ] =getPictures()
-    A = cell(3,2); 
-    %in diesem Cell Array die Bilddaten Gespeichert:
-    % 1 Bild | 2 Dateiname des Bildes
-    
+   
     disp('Bilder werden eingelesen ...')
     D = dir('pictures'); %erzeugt eine Liste aller Datein des Ordners
     j = 1 ;    %Zähler für die Bilder
+    D
+    A = cell(size(D,2),2); 
+    %in diesem Cell Array die Bilddaten Gespeichert:
+    % 1 Bild | 2 Dateiname des Bildes
     
     %Diese Schleife speichert alle in pictures befindlichen bilder in A
     for i = 1 : size( D, 1 )

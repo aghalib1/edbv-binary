@@ -70,6 +70,9 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
     %Comment the next two lines when using the function in final script
     %scale the values to 0-1 to show the result as an image
     scaledHough = double(houghRaum./m);
+    %figure();
+     subplot(3,1,3);
+   
     imshow(scaledHough);
     
     %Which ellipse centers should be returned as results?
