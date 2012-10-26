@@ -75,8 +75,6 @@ function [ final_points ] = hough_lines( img, angle_start, angle_end)
     %Comment the next two lines when using the function in final script
     %scale the values to 0-1 to show the result as an image
     scaledHough = double(houghRaum./m);
-   % figure();
-    subplot(3,1,2);
     
    imshow(scaledHough);
     
