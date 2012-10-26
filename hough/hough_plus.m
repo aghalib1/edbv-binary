@@ -30,7 +30,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
     
     for x=1:width
         
-        for y=1:size(img,1)
+        for y=1:height
             
             if img(y,x)>0 
 
@@ -39,7 +39,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
                         y_plus = round(y+y_loop);
                         x_plus = round(x+x_loop);
                         
-                        if y_plus>0 && x_plus>0 && y_plus<=width && x_plus<=height    
+                        if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
                             houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
                         end
                     end
@@ -49,7 +49,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
                         y_plus = round(y+y_loop);
                         x_plus = round(x+x_loop);
                         
-                        if y_plus>0 && x_plus>0 && y_plus<=width && x_plus<=height    
+                        if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
                             houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
                         end
                     end
@@ -70,9 +70,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
     %Comment the next two lines when using the function in final script
     %scale the values to 0-1 to show the result as an image
     scaledHough = double(houghRaum./m);
-    %figure();
-     subplot(3,1,3);
-   
+
     imshow(scaledHough);
     
     %Which ellipse centers should be returned as results?
@@ -101,7 +99,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
         end
     end
     
-   
+   size(houghRaum)
 
 end
 

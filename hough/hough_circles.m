@@ -52,8 +52,8 @@ function [ final_points ] = hough_circles(img, radius_x, radius_y)
     %Comment the next two lines when using the function in final script
     %scale the values to 0-1 to show the result as an image
     scaledHough = double(houghRaum./m);
-    subplot(3,1,1);
-    imshow(scaledHough);
+    
+     imshow(scaledHough);
     
     %Which ellipse centers should be returned as results?
     %Now: Only the centers of those ellipses with the maximum amount of
