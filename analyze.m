@@ -9,7 +9,9 @@ img=picture{1};%da als cell übergeben
 
 
 img_thin = im2bw(img,graythresh(img));
-img_thin = bwmorph(1-img_thin,'thin','inf');
+%img_thin = bwmorph(1-img_thin,'thin','inf');
+img_thin = 1-img_thin;
+
 
 % cd hough
 % subplot(4,1,1);

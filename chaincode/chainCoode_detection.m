@@ -19,13 +19,20 @@ for i=1:size(foreground,1)
 
     if ismember(foreground(i,:),processed,'rows')==0
 
-        %workaround, otherwise endless loop when getting to center pixel of
-        %a plus sign
-        if img(foreground(i,1)+1,foreground(i,2))==1 && img(foreground(i,1)-1,foreground(i,2))==1 ...
-            && img(foreground(i,1),foreground(i,2)+1)==1 && img(foreground(i,1),foreground(i,2)-1)==1
+%         %workaround, otherwise endless loop when getting to center pixel of
+%         %a plus sign
+%         if img(foreground(i,1)+1,foreground(i,2))==1 && img(foreground(i,1)-1,foreground(i,2))==1 ...
+%             && img(foreground(i,1),foreground(i,2)+1)==1 && img(foreground(i,1),foreground(i,2)-1)==1
+% 
+%             processed = cat(1,processed,foreground(i,:));
 
+        if ismember([foreground(i,1)+1,foreground(i,2)],processed,'rows')==1 || ismember([foreground(i,1)-1,foreground(i,2)],processed,'rows')==1 ...
+            || ismember([foreground(i,1),foreground(i,2)+1],processed,'rows')==1 || ismember([foreground(i,1),foreground(i,2)-1],processed,'rows')==1 ...
+            || ismember([foreground(i,1)+1,foreground(i,2)-1],processed,'rows')==1 || ismember([foreground(i,1)-1,foreground(i,2)+1],processed,'rows')==1 ...
+            || ismember([foreground(i,1)+1,foreground(i,2)+1],processed,'rows')==1 || ismember([foreground(i,1)-1,foreground(i,2)-1],processed,'rows')==1
+        
             processed = cat(1,processed,foreground(i,:));
-            
+
         else
 
             [chain, boundary] = getChainCode(img,foreground(i,:));
