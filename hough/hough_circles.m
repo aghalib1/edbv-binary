@@ -20,31 +20,27 @@ function [ final_points ] = hough_circles(img, radius_x, radius_y)
 %  Rows = Points
 %  1.Column x, 2.Column y 
 
-
     height = size(img,1);
     width = size(img,2);
 
     houghRaum = zeros(size(img));
     
-    for x=1:width
+    [y, x] = find(img);
+    
+    for i=1:size([y, x],1);
         
-        for y=1:size(img,1)
-            
-            if img(y,x)>0 
+        degreeCounter = 0;
+        for t=1:5:360
 
-                degreeCounter = 0;
-                for t=1:5:360
-                    
-                    degreeCounter = degreeCounter + 1;
-                    x_ellipse = round(x+radius_x*cosd(t));
-                    y_ellipse = round(y+radius_y*sind(t));
+            degreeCounter = degreeCounter + 1;
+            x_ellipse = round(x(i)+radius_x*cosd(t));
+            y_ellipse = round(y(i)+radius_y*sind(t));
                         
-                    if x_ellipse>0 && y_ellipse>0 && x_ellipse<=width && y_ellipse<=height
-                        houghRaum(y_ellipse,x_ellipse) = houghRaum(y_ellipse,x_ellipse) + 1;
-                    end
-                end
+           	if x_ellipse>0 && y_ellipse>0 && x_ellipse<=width && y_ellipse<=height
+                houghRaum(y_ellipse,x_ellipse) = houghRaum(y_ellipse,x_ellipse) + 1;
             end
         end
+ 
     end
     
     m = max(houghRaum(:));  %could also be a user input (how many pixels have to be on the ellipse to be considered as a result ellipse)
