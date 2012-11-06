@@ -29,38 +29,34 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
 
     houghRaum = zeros(size(img));
     
-    for x=1:width
-        
-        for y=1:height
-            
-            if img(y,x)>0 
+    [y, x] = find(img);
+    
+    for i=1:size([y, x],1);
 
-                for x_loop=-scale:1:scale
-                    for y_loop=1:1:1
-                        y_plus = round(y+y_loop);
-                        x_plus = round(x+x_loop);
+        for x_loop=-scale:1:scale
+            for y_loop=1:1:1
+            	y_plus = round(y(i)+y_loop);
+            	x_plus = round(x(i)+x_loop);
                         
-                        if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
-                            houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
-                        end
-                    end
+                if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
+                	houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
                 end
-                for y_loop=-scale:1:scale
-                    for x_loop=1:1:1
-                        y_plus = round(y+y_loop);
-                        x_plus = round(x+x_loop);
-                        
-                        if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
-                            houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
-                        end
-                    end
-                end                        
-
             end
         end
+        for y_loop=-scale:1:scale
+            for x_loop=1:1:1
+            	y_plus = round(y(i)+y_loop);
+                x_plus = round(x(i)+x_loop);
+                        
+                if y_plus>0 && x_plus>0 && y_plus<=height && x_plus<=width    
+                    houghRaum(y_plus,x_plus) = houghRaum(y_plus,x_plus) + 1;
+                end
+            end
+        end                        
+
     end
-    
-    
+
+
     m = max(houghRaum(:));
     
     if m<min_pixels
