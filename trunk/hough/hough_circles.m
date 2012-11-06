@@ -1,4 +1,5 @@
 %Author: Manuel Kröter
+% Version: 6.11.2012
 
 function [ final_points ] = hough_circles(img, radius_x, radius_y)
 % Hough Transformation to detect zeros
@@ -45,7 +46,6 @@ function [ final_points ] = hough_circles(img, radius_x, radius_y)
             end
         end
     end
-    
     
     m = max(houghRaum(:));  %could also be a user input (how many pixels have to be on the ellipse to be considered as a result ellipse)
     
