@@ -1,4 +1,5 @@
 %Author: Manuel Kröter
+% Version: 6.11.2012
 
 function [ final_points ] = hough_plus(img, scale, min_pixels)
 % Hough Transformation to detect plus

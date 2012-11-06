@@ -1,4 +1,5 @@
 %Author: Manuel Kröter
+% Version: 6.11.2012
 
 function [ final_points ] = hough_lines( img, angle_start, angle_end)
 %function [ final_points ] = hough_lines( img, angle_start, angle_end, min_pixels, max_pixels )
