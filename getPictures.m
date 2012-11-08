@@ -1,26 +1,39 @@
-% Gruppennummer AG_A_5
-% Höller Benjamin 0925688
+%Author: Höller Benjamin 0925688
+%Version: 8.11.2012
 
 
 function [ A ] =getPictures()
+%getPictures
+%
+%this funktion trys to read all files of the directory "pictures" as
+%images. If possible, the picture gets Saved in A
+%
+% Output:
+% A cellarray[picturedata, filename]
+
+   disp('importing Pictures:')
+
+    D = dir('pictures');
+    j = 1 ;    %counter
+  
+    A = cell(0,2); 
    
-    disp('Bilder werden eingelesen ...')
-    D = dir('pictures'); %erzeugt eine Liste aller Datein des Ordners
-    j = 1 ;    %Zähler für die Bilder
-    D
-    A = cell(size(D,2),2); 
-    %in diesem Cell Array die Bilddaten Gespeichert:
-    % 1 Bild | 2 Dateiname des Bildes
-    
-    %Diese Schleife speichert alle in pictures befindlichen bilder in A
-    for i = 1 : size( D, 1 )
-       if D( i ).isdir == 0 %hier bildeinschränkungen möglich
+   for i = 1 : size( D, 1 )
+       if D( i ).isdir == 0 
+           try
             A{j,1} = imread (strcat('pictures/',D( i ).name)) ;
             A{j,2} = [D( i ).name ];
+            disp([num2str(j),':  ',A{j,2}]);
             j = j +1;
+           catch exception
+              disp(['Error at file ',D( i ).name]);
+              disp('Maybe this file doesn´t contain imagedata!?');
+           end
         end
         
     end
 
+    disp([num2str(size(A,1)),' Pictures where imported.']);
+  
 end
 
