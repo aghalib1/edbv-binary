@@ -78,7 +78,8 @@ hold off;
 S = getString(zeros,ones,plus);
 disp(['string: ',S]);
 
-
+%TODO
+%S interprätieren
 
 
 
