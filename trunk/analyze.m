@@ -15,10 +15,12 @@ function [ ] = analyze(picture,filename,chain)
 %   TODO Beschreibung der Funktion + Code kommentieren
 %
 
+disp(['Analyzing ',filename])
+
+
 img=picture{1};%da als cell übergeben
 img_thin = im2bw(img,graythresh(img));        %TODO
 img_thin = bwmorph(1-img_thin,'thin','inf');  %TODO
-
 
 
 
@@ -52,8 +54,9 @@ else
 
 end
 
-%TODO Ergebnis berechnen
 
+
+%SETTING MARKERS
 image(img);
 hold on;
 
@@ -68,6 +71,17 @@ if size(ones,1)>0
 end
 
 hold off;
+
+
+
+%Converting Array to String
+S = getString(zeros,ones,plus);
+disp(['string: ',S]);
+
+
+
+
+
  
 end
 

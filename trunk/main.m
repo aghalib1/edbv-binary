@@ -6,21 +6,22 @@
 % Höller Benjamin (0925688)
 
 
-
 % Authors
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
 
+%Version: 8.11.2012
+
 close all;
 clc;
 
-disp('Bilder einlesen')
 A=getPictures;
-%jedes Bild analysieren
 
 %use chain code (= 1) or hough detection (= 0) ?
-chain = 0;
+chain = 1;
 
+
+%jedes Bild analysieren
 for i = 1 : size( A, 1 )
   
     if ~isempty(A(i,1))
