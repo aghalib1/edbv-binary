@@ -40,7 +40,7 @@ else
    %ones = hough_circles(img_thin,0,8);
    ones = hough_lines(img_thin,-5,5);
    subplot(4,1,3);
-   plus = hough_plus(img_thin,5,10);
+   plus = hough_plus(img_thin,5,15);
    cd ..
    subplot(4,1,4);
    
