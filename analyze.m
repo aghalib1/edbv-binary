@@ -55,7 +55,7 @@ else
 end
 
 
-
+ergebnis = 'haha';
 %SETTING MARKERS
 image(img);
 hold on;
@@ -78,11 +78,45 @@ hold off;
 S = getString(zeros,ones,plus);
 disp(['string: ',S]);
 
-%TODO
+
 %S interprätieren
+%Author: Christoph Meinhardt
 
+zahl1 = S(1 : strfind(S,'+') - 1);
+zahl2 = S(strfind(S,'+') +1 :length(S));
 
+disp(['Zahl 1: ',zahl1]);
+disp(['Zahl 2: ',zahl2]);
 
+%Converting the binary number into a hexadezimal number
+
+%zahl1
+dec = 0;
+for i = 1 : length(zahl1)
+    dec = dec + str2num(zahl1(i)) * 2^(length(zahl1) - i);
+end
+disp('Zahl 1 als Dezimalzahl:');
+disp(dec);
+
+%zahl2
+
+dec2 = 0;
+for i = 1 : length(zahl2)
+    dec2 = dec2 + str2num(zahl2(i)) * 2^(length(zahl2) - i);
+end
+disp('Zahl 2 als Dezimalzahl:');
+disp(dec2);
+
+%Addieren der 2 Zahlen
+
+dezResult = dec + dec2;
+disp('Ergebnis als Dezimalzahl:');
+disp(dezResult);
+
+%Addieren der Binärzahlen:
+
+binResult = dec2bin(dezResult);
+disp(binResult);
  
 end
 
