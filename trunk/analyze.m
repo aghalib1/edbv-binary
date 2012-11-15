@@ -15,21 +15,26 @@ function [ ] = analyze(picture,filename,chain)
 %   TODO Beschreibung der Funktion + Code kommentieren
 %
 
-disp(['Analyzing ',filename])
+disp(['Analyzing ',filename]);
 
 
 img=picture{1};%da als cell übergeben
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 img_thin = im2bw(img,graythresh(img));        %TODO
 img_thin = bwmorph(1-img_thin,'thin','inf');  %TODO
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if chain
+    %%
     cd chaincode
     [ones, zeros, plus] = chainCode_detection(img_thin);
     cd ..
 else
-    
+    %%
     %TODO
     %Gute Werte für Hough Transformation finden
     
@@ -54,11 +59,11 @@ else
     
 end
 
-
+%%
 %SETTING MARKERS
 image(img);
-hold on;
 
+hold on;
 if size(zeros,1)>0
     line(zeros(:,1),zeros(:,2),'Marker','o','Linestyle','none','markersize',8,'color','b');
 end
@@ -72,14 +77,28 @@ end
 hold off;
 
 
-
+%%
 %Converting Array to String
+
 S = getString(zeros,ones,plus);
 disp(['string: ',S]);
-
-
+if size(S)==0
+    disp('No string found');
+else
+%%
 %S interprätieren
 %Author: Christoph Meinhardt
+
+
+%anmerkung höller benjamin 15.11.
+%bitte ausgaben auf englisch und etwas ansprechender formatieren
+%wie wärs mit:
+%
+%binär:    100101+1110101=10011010
+%dezimal:  37+117=154
+%
+%
+%kein + ist übrigens kein fehler!
 
 %Überprüfen ob ein '+' am Anfang oder am Ende steht
 if (S(1)) ~= '+'
@@ -153,4 +172,5 @@ if strfind(S,'+') == 1
     disp('Fehler: Am Anfang steht ein Plus');
 end
 
+end
 end

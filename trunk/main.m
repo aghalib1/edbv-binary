@@ -21,7 +21,7 @@ A=getPictures;
 chain = 1;
 
 
-%jedes Bild analysieren
+%analyze every picture
 for i = 1 : size( A, 1 )
   
     if ~isempty(A(i,1))
