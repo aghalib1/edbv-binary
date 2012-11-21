@@ -22,8 +22,10 @@ img=picture{1};%da als cell übergeben
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cd graythresh
+img_thin = im2bw(img,simpleGrayThresh(img));        %TODO:im2bw (simpleGrayThresh allready working)
+cd ..
 
-img_thin = im2bw(img,graythresh(img));        %TODO
 cd thin
 %img_thin = 1-thin(img_thin); %still not working correctly, therefore commented.
 img_thin = bwmorph(1-img_thin,'thin','inf');  %TODO

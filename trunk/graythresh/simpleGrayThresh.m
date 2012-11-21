@@ -1,6 +1,11 @@
+%Author: Höller Benjamin 0925688
+%Version: 22.11.2012
+
 function [ out ] = simpleGrayThresh( I )
-%SIMPLEGRAYTHRESH Summary of this function goes here
-%   Detailed explanation goes here
+%SIMPLEGRAYTHRESH returns the greythresh value
+%   
+%This method first makes a brightness Histogram(H) according to the human
+%perception, and than returns the mean of the two highest peaks.
 
 max=0;
 sum=uint32(0);
@@ -23,35 +28,20 @@ H(256)=0;
       
     end
  end
- figure
- plot(H);
+ 
+ %figure
+ %plot(H);
  
  %%
  %Finding the two maximas
- index1=0;
- index2=-100;
- max1=0;
- max2=0;
- 
- for i=1:size(H,2)
-    if H(i)>max1 
-        if(i>index2+100)
-        index2=index1;
-        max2=max1;
-        end
-        index1=i;
-        max1=H(i);
-    end
-    
- end
- 
- index1
- index2
- out=(index1+index2/2)/256
- 
- %out=double(sum)/double((size(I,1)*size(I,2)*255));
- 
-     
+ %if impossible: 128
+  try
+    [pks,locs] = findpeaks(H,'sortstr','descend');
+
+    out=((locs(1)+locs(2))/2)/256   ;
+  catch ex
+    out=0.5;
+  end
         
 end
 
