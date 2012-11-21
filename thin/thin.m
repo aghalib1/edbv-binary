@@ -65,37 +65,37 @@ while(row+2<=picSize(1) )
     row=row+1;
 end
 
-thinnedPictureLeftToUpper=thinnedPicture;
-row=picSize(1);
-col=1;
-while(row>=3 )
-    while(col+2<=picSize(2))
-       if  thinnedPictureLeftToUpper(row-1,col+1) == 1
-           kernel = thinnedPictureLeftToUpper(row-2:row,col:col+2);
-           thinnedPictureLeftToUpper(row-1,col+1)=1-deleteable(kernel);
-       end
-       col=col+1;
-    end
-    col=1;
-    row=row-1;
-end
+%thinnedPictureLeftToUpper=thinnedPicture;
+%row=picSize(1);
+%col=1;
+%while(row>=3 )
+%    while(col+2<=picSize(2))
+%       if  thinnedPictureLeftToUpper(row-1,col+1) == 1
+%           kernel = thinnedPictureLeftToUpper(row-2:row,col:col+2);
+%           thinnedPictureLeftToUpper(row-1,col+1)=1-deleteable(kernel);
+%       end
+%       col=col+1;
+%    end
+%    col=1;
+%    row=row-1;
+%end
 
-thinnedPictureRightToUpper = thinnedPicture;
-row=picSize(1);
-col=picSize(2);
-while(row>=3 )
-    while(col>=3)
-       if  thinnedPictureRightToUpper(row-1,col-1) == 1
-           kernel = thinnedPictureRightToUpper(row-2:row,col-2:col);
-           thinnedPictureRightToUpper(row-1,col-1)=1-deleteable(kernel);
-       end
-       col=col-1;
-    end
-    col=picSize(2);
-    row=row-1;
-end
+%thinnedPictureRightToUpper = thinnedPicture;
+%row=picSize(1);
+%col=picSize(2);
+%while(row>=3 )
+%    while(col>=3)
+%       if  thinnedPictureRightToUpper(row-1,col-1) == 1
+%           kernel = thinnedPictureRightToUpper(row-2:row,col-2:col);
+%           thinnedPictureRightToUpper(row-1,col-1)=1-deleteable(kernel);
+%       end
+%       col=col-1;
+%    end
+%    col=picSize(2);
+%    row=row-1;
+%end
 
-thinnedPicture = (thinnedPictureLeftToBottom & thinnedPictureRightToBottom);% | (thinnedPictureRightToUpper & thinnedPictureRightToBottom);
+thinnedPicture = (thinnedPictureLeftToBottom );%& thinnedPictureRightToBottom);% | (thinnedPictureRightToUpper & thinnedPictureRightToBottom);
 thinnedPicture = (thinnedPicture-1).*-1; %returned to 1 for white and 0 for black
 end
 
