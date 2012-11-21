@@ -24,8 +24,10 @@ img=picture{1};%da als cell übergeben
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 img_thin = im2bw(img,graythresh(img));        %TODO
+cd thin
+%img_thin = 1-thin(img_thin); %still not working correctly, therefore commented.
 img_thin = bwmorph(1-img_thin,'thin','inf');  %TODO
-
+cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if chain
