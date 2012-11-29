@@ -4,38 +4,57 @@
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
 
-% Version: 6.11.2012
+% Version: 29.11.2012
 
 
 
 function [ ] = analyze(picture,filename,chain)
-%ANALYZE Summary of this function goes here
-%   Detailed explanation goes here
+%ANALYZE Main function for binary calculator
+%   Detects binary numbers and an operator and computes the result
+%   
+%   Input:
+%   picture     Picture containing the binary numbers (see report for
+%               detailed description of the picture)
+%   filename    filename of the picture, not really necessary
+%   chain       Use chain code detection or hough detecion
+%               chain = 1 -> chain code
+%               chain = 0 -> hough transform
 %
-%   TODO Beschreibung der Funktion + Code kommentieren
-%
+%   Output:
+%   - Diplays the detected operator and numbers in binary/decimal form
+%     and the result of the computation in the console
+%   - Shows the input picure with marked positions of the detected letters 
 
+    %INFO:
+    %At first, it was planned to do everything with hough detection. But
+    %then the Hough Transform was replaced by Chain Code Detection. 
+    %At this stage, the Hough Detecion was already implemented.
+    %We did not remove it from the code. You can choose between Hough and
+    %Chain Code using the input parameter 'chain' (chain = 0 -> Use Hough)
+    %But Hough Detection only works for a fixed font style and size (see report). 
+    %In addition to that, the only operator supported is the plus sign.
+
+    
 disp(['Analyzing ',filename]);
-
 
 img=picture{1};%da als cell übergeben
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cd graythresh
-img_thin = im2bw(img,simpleGrayThresh(img));        %TODO:im2bw (simpleGrayThresh allready working)
+img_thin = im2bw(img,simpleGrayThresh(img));        %TODO:im2bw, foreground detection
+img_thin = 1-img_thin;  %temporary, foreground has to be white!
 cd ..
 
 cd thin
-%img_thin = 1-thin(img_thin); %still not working correctly, therefore commented.
-img_thin = bwmorph(1-img_thin,'thin','inf');  %TODO
+%img_thin = thin(img_thin); %still not working correctly, therefore commented.
+img_thin = bwmorph(img_thin,'thin','inf');  %TODO
 cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if chain
     %%
     cd chaincode
-    [ones, zeros, plus] = chainCode_detection(img_thin);
+    [ones, zeros, plus, minus, mult] = chainCode_detection(img_thin);
     cd ..
 else
     %%
@@ -77,6 +96,12 @@ end
 if size(ones,1)>0
     line(ones(:,1),ones(:,2),'Marker','*','Linestyle','none','markersize',8,'color','r');
 end
+if size(minus,1)>0
+    line(minus(:,1),minus(:,2),'Marker','-','Linestyle','none','markersize',8,'color','c');
+end
+if size(mult,1)>0
+    line(mult(:,1),mult(:,2),'Marker','x','Linestyle','none','markersize',8,'color','m');
+end
 
 hold off;
 
@@ -84,13 +109,13 @@ hold off;
 %%
 %Converting Array to String
 
-S = getString(zeros,ones,plus);
+S = getString(zeros,ones,plus,minus,mult);
 disp(['string: ',S]);
 if size(S)==0
     disp('No string found');
 else
 %%
-%S interprätieren
+%S interpretieren
 %Author: Christoph Meinhardt
 
 

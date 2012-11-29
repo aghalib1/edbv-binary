@@ -1,8 +1,13 @@
 %Author: Höller Benjamin 0925688
 %Version: 8.11.2012
 
-function [ S ] = getString(zeros,ones,plus)
+function [ S ] = getString(zeros,ones,plus,minus,mult)
 %getString
+
+
+%TODO: minus, mult !
+
+
 %
 % Sorts the zeros, ones and plus signs according to their x possition
 %
