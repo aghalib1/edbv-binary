@@ -1,7 +1,7 @@
 %Author: Manuel Kröter
-%Version: 6.11.2012
+%Version: 29.11.2012
 
-function [ result_one, result_zero, result_plus] = chainCode_detection( img )
+function [ result_one, result_zero, result_plus, result_minus, result_mult] = chainCode_detection( img )
 %chainCode_detection
 %
 % Detects zeros, ones and plus signs in an image
@@ -16,12 +16,16 @@ function [ result_one, result_zero, result_plus] = chainCode_detection( img )
 % result_one	positions of detected ones (n by 2 matrix, 1.column: x, 2.column: y)
 % result_zero   positions of detected zeros (n by 2 matrix, 1.column: x, 2.column: y)
 % result_plus   positions of detected plus signs (n by 2 matrix, 1.column: x, 2.column: y)
+% result_minus  positions of detected minus signs (n by 2 matrix, 1.column: x, 2.column: y)
+% result_mult   positions of detected multiplication signs (n by 2 matrix, 1.column: x, 2.column: y)
 
 
 %init arrays
 result_plus = [];
 result_one = [];
 result_zero = [];
+result_mult = [];
+result_minus = [];
 processed = [];
 
 %find all the foreground pixels
@@ -69,13 +73,28 @@ for i=1:size(foreground,1)
                 diagonal_up = sum(chain==1)/size(chain,2);
                 vertical = sum(chain==2)/size(chain,2);
                 diagonal_down = sum(chain==3)/size(chain,2);
-
+                
+                
+               
+                %TODO FIND PERFECT VALUES FOR DETECTION !!
+                
+                
+                %detect 1
                 if vertical+diagonal_up >= 0.8 && vertical >= 0.6
                     result_one= cat(1,result_one,center);
+                %detect 0
                 elseif vertical >= 0.35 && (diagonal_up-diagonal_down) > -0.1 && (diagonal_up-diagonal_down) < 0.1 && horizontal<vertical
                     result_zero = cat(1,result_zero,center);
+                %detect +
                 elseif (horizontal-vertical) > -0.1 && (horizontal-vertical) < 0.1 && (diagonal_down+diagonal_up)<0.2
                     result_plus = cat(1,result_plus,center);
+                %detect -
+                elseif horizontal > 0.8
+                    result_minus = cat(1,result_minus,center);
+                %detect x
+                elseif (diagonal_down+diagonal_up) > 0.5 && (diagonal_down-diagonal_up) > -0.1 && (diagonal_down-diagonal_up) < 0.1
+                    result_mult = cat(1,result_mult,center);             
+                    
                 end
             end
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
