@@ -1,5 +1,5 @@
 %Author: Manuel Kröter
-%Version: 29.11.2012
+%Version: 3.12.2012
 
 function [ result_one, result_zero, result_plus, result_minus, result_mult] = chainCode_detection( img )
 %chainCode_detection
@@ -74,25 +74,24 @@ for i=1:size(foreground,1)
                 vertical = sum(chain==2)/size(chain,2);
                 diagonal_down = sum(chain==3)/size(chain,2);
                 
+                %[horizontal vertical diagonal_up diagonal_down]
                 
-               
                 %TODO FIND PERFECT VALUES FOR DETECTION !!
-                
-                
+
                 %detect 1
-                if vertical+diagonal_up >= 0.8 && vertical >= 0.6
+                if diagonal_up > 1.5*diagonal_down && horizontal*1.1<vertical
                     result_one= cat(1,result_one,center);
                 %detect 0
-                elseif vertical >= 0.35 && (diagonal_up-diagonal_down) > -0.1 && (diagonal_up-diagonal_down) < 0.1 && horizontal<vertical
+                elseif vertical >= 0.4 && abs(diagonal_up-diagonal_down) < 0.05 && horizontal*1.5<vertical
                     result_zero = cat(1,result_zero,center);
                 %detect +
-                elseif (horizontal-vertical) > -0.1 && (horizontal-vertical) < 0.1 && (diagonal_down+diagonal_up)<0.2
+                elseif abs(horizontal-vertical) < 0.05 && (diagonal_down+diagonal_up)<0.22 && abs(diagonal_up-diagonal_down) < 0.05
                     result_plus = cat(1,result_plus,center);
                 %detect -
                 elseif horizontal > 0.8
                     result_minus = cat(1,result_minus,center);
                 %detect x
-                elseif (diagonal_down+diagonal_up) > 0.5 && (diagonal_down-diagonal_up) > -0.1 && (diagonal_down-diagonal_up) < 0.1
+                elseif (diagonal_down+diagonal_up) > 0.5 && abs(diagonal_down-diagonal_up) < 0.05 && abs(horizontal-vertical) < 0.1
                     result_mult = cat(1,result_mult,center);             
                     
                 end

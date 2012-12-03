@@ -6,15 +6,14 @@
 %
 %Skeletizes a black-white-image.
 %Input: a black and white image; white == foreground, black == background
+%       prune   how much should the result be pruned? 'prune' has to be an integer
+%               0 = no pruning
 %
 %Output: the thinned black and white picture.
 
-function [ thinned ] = thin_test( img )
-
+function [ thinned ] = thin( img, prune )
 
 thinned = img;
-width = size(img,2);
-height = size(img,1);
 
 S1 = [-1,-1,-1;
        0,1,0;
@@ -64,7 +63,7 @@ end
 
 %Pruning
 
-for i=1:1
+for i=1:prune
 
     
    for j=1:4
