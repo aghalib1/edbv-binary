@@ -41,15 +41,17 @@ img=picture{1};%da als cell übergeben
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cd graythresh
-[value,background]=simpleGrayThresh(img);
+[value, background]=simpleGrayThresh(img);
 img_thin = im2bw(img,value);        %TODO:im2bw, foreground detection
 
-img_thin = 1-img_thin;  %temporary, foreground has to be white!
+if median(single(img_thin(:)))==1 
+    img_thin = 1-img_thin;  
+end
+
 cd ..
 
 cd thin
-%img_thin = thin(img_thin); %still not working correctly, therefore commented.
-img_thin = bwmorph(img_thin,'thin','inf');  %TODO
+img_thin = thin(img_thin,0);
 cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -99,7 +101,7 @@ if size(ones,1)>0
     line(ones(:,1),ones(:,2),'Marker','*','Linestyle','none','markersize',8,'color','r');
 end
 if size(minus,1)>0
-    line(minus(:,1),minus(:,2),'Marker','o','Linestyle','none','markersize',8,'color','c');
+    line(minus(:,1),minus(:,2),'Marker','^','Linestyle','none','markersize',8,'color','c');
 end
 if size(mult,1)>0
     line(mult(:,1),mult(:,2),'Marker','x','Linestyle','none','markersize',8,'color','m');
@@ -112,7 +114,7 @@ hold off;
 %Converting Array to String
 
 S = getString(zeros,ones,plus,minus,mult);
-disp(['string: ',S]);
+%disp(['string: ',S]);
 if size(S)==0
     disp('No string found');
 else
