@@ -79,19 +79,19 @@ for i=1:size(foreground,1)
                 %TODO FIND PERFECT VALUES FOR DETECTION !!
 
                 %detect 1
-                if diagonal_up > 1.5*diagonal_down && horizontal*1.1<vertical
+                if diagonal_up > 1.2*diagonal_down && horizontal*1.1<vertical
                     result_one= cat(1,result_one,center);
                 %detect 0
-                elseif vertical >= 0.4 && abs(diagonal_up-diagonal_down) < 0.05 && horizontal*1.5<vertical
+                elseif horizontal<0.28 && vertical >= 0.4 && abs(diagonal_up-diagonal_down) < 0.05 && horizontal*1.5<vertical && (diagonal_up+diagonal_down)>0.15
                     result_zero = cat(1,result_zero,center);
                 %detect +
-                elseif abs(horizontal-vertical) < 0.05 && (diagonal_down+diagonal_up)<0.22 && abs(diagonal_up-diagonal_down) < 0.05
+                elseif abs(horizontal-vertical) < 0.2 && (diagonal_down+diagonal_up)<0.29 && abs(diagonal_up-diagonal_down) < 0.05
                     result_plus = cat(1,result_plus,center);
                 %detect -
-                elseif horizontal > 0.8
+                elseif horizontal > 0.7
                     result_minus = cat(1,result_minus,center);
                 %detect x
-                elseif (diagonal_down+diagonal_up) > 0.5 && abs(diagonal_down-diagonal_up) < 0.05 && abs(horizontal-vertical) < 0.1
+                elseif (diagonal_down+diagonal_up) > 0.47 && abs(diagonal_down-diagonal_up) < 0.05
                     result_mult = cat(1,result_mult,center);             
                     
                 end
