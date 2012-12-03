@@ -10,12 +10,15 @@
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
 
-%Version: 8.11.2012
+%Version: 3.12.2012
 
 close all;
 clc;
 
-A=getPictures;
+%if testmode is active, the folder testPictures will be read
+%else the normal pictures Folder
+test=1;
+A=getPictures(test);
 
 %use chain code (= 1) or hough detection (= 0) ?
 chain = 1;

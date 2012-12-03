@@ -1,0 +1,34 @@
+Höller Benjamin:
+
+zu den testbildern:
+
+2invert- invertiertes Bild für Vordergrunderkennung
+
+color_simple: einfaches 2 farbbild mit unterschiedlichen helligkeiten
+
+color Komplex: 0er - farbe variieren in den helligkeiten, um grenzen zu checken:
+Hintergrund:
+r,g,b, H(=R*0,299+G*0,587+B*0,114)
+255	127	39	155,24 (156 in Matlab wegen +1)
+0er:
+R       G       B       H
+110	180	110	151,09
+120	180	110	154,08
+130	180	110	157,07
+140	180	110	160,06
+150	180	110	163,05
+160	180	110	166,04
+170	180	110	169,03
+
+
+spin_-5-0
+von -5 bis 0 in einerschritten im urzeigersinn gedreht
+spin_+5-0
+von +5 bis 0 in einerschritten im urzeigersinn gedreht
+
+size16-26
+in 2erschritten von 16 auf 26 schritgröße
+
+ALLE ARIAL außer
+test_Calibri_36px_bw(nicht von mir)
+
