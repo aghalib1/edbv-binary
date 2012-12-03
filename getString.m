@@ -1,21 +1,19 @@
 %Author: Höller Benjamin 0925688
-%Version: 8.11.2012
+%Version: 3.12.2012
 
 function [ S ] = getString(zeros,ones,plus,minus,mult)
 %getString
-
-
-%TODO: minus, mult !
 
 
 %
 % Sorts the zeros, ones and plus signs according to their x possition
 %
 % Input:
-% zeros         positions of detected zeros (n by 2 matrix, 1.column: x,% 2.column: y)
-% ones          positions of detected ones (n by 2 matrix, 1.column: x,% 2.column: y)
-% plus          positions of detected plus signs (n by 2 matrix, 1.column:% x, 2.column: y)
-% 
+% zeros         positions of detected zeros (n by 2 matrix, 1.column: x, 2.column: y)
+% ones          positions of detected ones (n by 2 matrix, 1.column: x, 2.column: y)
+% plus          positions of detected plus signs (n by 2 matrix, 1.column: x, 2.column: y)
+% minus         positions of detected minus signs (n by 2 matrix, 1.column: x, 2.column: y)
+% mult          positions of detected multiplication signs (n by 2 matrix, 1.column: x, 2.column: y)
 % Output:
 % S     A String representing the given Values in the correct Order
 
@@ -43,6 +41,22 @@ end
 for i = 1 : size( plus, 1 )
     X{1,c}=plus(i,1);
     X{2,c}='+';
+    c=c+1;
+end
+
+%%
+%MINUS = 3
+for i = 1 : size( minus, 1 )
+    X{1,c}=minus(i,1);
+    X{2,c}='-';
+    c=c+1;
+end
+
+%%
+%MULT = 4
+for i = 1 : size( mult, 1 )
+    X{1,c}=mult(i,1);
+    X{2,c}='x';
     c=c+1;
 end
 

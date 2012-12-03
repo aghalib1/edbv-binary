@@ -4,7 +4,7 @@
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
 
-% Version: 29.11.2012
+% Version: 3.12.2012
 
 
 
@@ -34,14 +34,16 @@ function [ ] = analyze(picture,filename,chain)
     %But Hough Detection only works for a fixed font style and size (see report). 
     %In addition to that, the only operator supported is the plus sign.
 
-    
-disp(['Analyzing ',filename]);
+disp(' ');  
+disp(['Analyzing: ',filename{1}]);
 
 img=picture{1};%da als cell übergeben
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cd graythresh
-img_thin = im2bw(img,simpleGrayThresh(img));        %TODO:im2bw, foreground detection
+[value,background]=simpleGrayThresh(img);
+img_thin = im2bw(img,value);        %TODO:im2bw, foreground detection
+
 img_thin = 1-img_thin;  %temporary, foreground has to be white!
 cd ..
 
@@ -97,7 +99,7 @@ if size(ones,1)>0
     line(ones(:,1),ones(:,2),'Marker','*','Linestyle','none','markersize',8,'color','r');
 end
 if size(minus,1)>0
-    line(minus(:,1),minus(:,2),'Marker','-','Linestyle','none','markersize',8,'color','c');
+    line(minus(:,1),minus(:,2),'Marker','o','Linestyle','none','markersize',8,'color','c');
 end
 if size(mult,1)>0
     line(mult(:,1),mult(:,2),'Marker','x','Linestyle','none','markersize',8,'color','m');
