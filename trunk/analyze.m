@@ -47,8 +47,9 @@ img_thin = im2bw(img,value);        %TODO:im2bw, foreground detection
 if median(single(img_thin(:)))==1 
     img_thin = 1-img_thin;  
 end
-
 cd ..
+
+
 
 cd thin
 img_thin = thin(img_thin,0);
@@ -87,8 +88,7 @@ else
 end
 
 %%
-%SETTING MARKERS
-image(img);
+%SETTING MARKER
 
 hold on;
 if size(zeros,1)>0
