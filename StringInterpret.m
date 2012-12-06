@@ -1,8 +1,7 @@
 function [  ] = StringInterpret(S)
 
-%String S interpretieren
 %Author: Christoph Meinhardt
-
+%String S interpretieren
 
 %Überprüfen ob ein '+' oder '-' oder 'x' am Anfang oder am Ende steht
 if (S(1)) ~= '+' || '-' || 'x'

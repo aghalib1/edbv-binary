@@ -49,7 +49,8 @@ if median(single(img_thin(:)))==1
 end
 cd ..
 
-
+%Medianfilter
+img_thin = medianfilter(img_thin);
 
 cd thin
 img_thin = thin(img_thin,0);
