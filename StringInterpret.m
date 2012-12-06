@@ -60,7 +60,7 @@ if (S(1)) ~= '+' || '-' || 'x'
                 dezResult = dec1 + dec2;
             end
             if (operator) == '-'
-                dezResult = dec1 + dec2;
+                dezResult = dec1 - dec2;
             end
             if (operator) == 'x'
                 dezResult = dec1 * dec2;
@@ -82,7 +82,7 @@ if (S(1)) ~= '+' || '-' || 'x'
         end
         %Wenn mehr als 1 Operator vorkommt
         if  (numberOfOperators) > 1
-            disp('Fehler: Zu viele Operatoren');
+            disp('Error: Too many Operators found');
         end
         %Wenn kein Operator vorkommt
         if (numberOfOperators) == 0
@@ -96,13 +96,29 @@ if (S(1)) ~= '+' || '-' || 'x'
     end
     %Wenn am Ende ein Operator steht
     if strfind(S,'+') == length(S)
-        disp('Fehler: Am Ende steht ein Plus');
+        disp('Error: Plus at the End of the String');
+    end
+    
+    if strfind(S,'-') == length(S)
+        disp('Error: Minus at the End of the String');
+    end
+    
+    if strfind(S,'x') == length(S)
+        disp('Error: Multiple at the End of the String');
     end
 end
+%%
 %Wenn am Anfang ein Operator steht
 if strfind(S,'+') == 1
-    disp('Fehler: Am Anfang steht ein Plus');
+    disp('Error: Plus at the Beginning of the String');
 end
 
+if strfind(S,'-') == 1
+    disp('Error: Minus at the Beginning of the String');
+end
+
+if strfind(S,'x') == 1
+    disp('Error: Multiple at the Beginning of the String');
+end
 end
 
