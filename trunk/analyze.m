@@ -8,7 +8,7 @@
 
 
 
-function [ ] = analyze(picture,filename,chain)
+function [ ] = analyze(picture,filename,med,chain)
 %ANALYZE Main function for binary calculator
 %   Detects binary numbers and an operator and computes the result
 %   
@@ -50,7 +50,10 @@ end
 cd ..
 
 %Medianfilter
+if (med) == 1 
 img_thin = medianfilter(img_thin);
+end
+
 
 cd thin
 img_thin = thin(img_thin,0);
