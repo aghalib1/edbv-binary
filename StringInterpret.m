@@ -54,13 +54,22 @@ if (S(1)) ~= '+' || '-' || 'x'
             
             %%
             %Berechnen vom Ergebnis
+            negative = false;
             
             if (operator) == '+'
                 dezResult = dec1 + dec2;
             end
+            
             if (operator) == '-'
                 dezResult = dec1 - dec2;
+                if (dezResult) < 0
+                    negative = true;
+                    dezResult = dezResult * (-1);
+                else
+                    negative = false;
+                end
             end
+            
             if (operator) == 'x'
                 dezResult = dec1 * dec2;
             end
@@ -70,12 +79,17 @@ if (S(1)) ~= '+' || '-' || 'x'
             %%
             %Ausgabe vom Ergebnis:
             
-            %dezimal
-            dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'=',num2str(dezResult));
-            disp(dezAusgab);
             
-            %binär
-            binaryAusgabe = strcat('Binary: ',zahl1,operator,zahl2,'=',num2str(binResult));
+            if (negative) == false
+                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'=',num2str(dezResult));
+                binaryAusgabe = strcat('Binary: ',zahl1,operator,zahl2,'=',num2str(binResult));
+            else
+                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'= -',num2str(dezResult));
+                binaryAusgabe = strcat('Binary: ',zahl1,operator,zahl2,'= -',num2str(binResult));
+            end
+                
+                
+            disp(dezAusgab);
             disp(binaryAusgabe);
             
         end
