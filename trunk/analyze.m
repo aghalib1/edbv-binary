@@ -42,11 +42,12 @@ img=picture{1};%da als cell übergeben
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cd graythresh
 [value, background]=simpleGrayThresh(img);
-img_thin = im2bw(img,value);        %TODO:im2bw, foreground detection
+cd ../bw
+img_thin = bw(img,value,background);        %TODO:im2bw, foreground detection
 
-if median(single(img_thin(:)))==1 
-    img_thin = 1-img_thin;  
-end
+%  if median(single(img_thin(:)))==1 
+%      img_thin = 1-img_thin;  
+%  end
 cd ..
 
 %Medianfilter
