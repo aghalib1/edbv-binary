@@ -1,11 +1,11 @@
 %Author: Manuel Kröter
-%Version: 3.12.2012
+%Version: 14.12.2012
 
 function [ result_one, result_zero, result_plus, result_minus, result_mult] = chainCode_detection( img )
 %chainCode_detection
 %
-% Detects zeros, ones and plus signs in an image
-% Returns the center positions of the detected ones, zeros and plus signs
+% Detects zeros, ones and operators (+,-,x) in an image
+% Returns the center positions of the detected ones, zeros and operator signs
 % Independent of digit size!
 %
 % Input:
