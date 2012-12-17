@@ -8,7 +8,7 @@
 
 
 
-function [ ] = analyze(picture,filename,med,chain)
+function [ ] = analyze(picture,filename,med,chain,prune)
 %ANALYZE Main function for binary calculator
 %   Detects binary numbers and an operator and computes the result
 %   
@@ -43,11 +43,8 @@ img=picture{1};%da als cell übergeben
 cd graythresh
 [value, background]=simpleGrayThresh(img);
 cd ../bw
-img_thin = bw(img,value,background);        %TODO:im2bw, foreground detection
+img_thin = bw(img,value,background);
 
-%  if median(single(img_thin(:)))==1 
-%      img_thin = 1-img_thin;  
-%  end
 cd ..
 
 %Medianfilter
@@ -55,9 +52,9 @@ if (med) == 1
 img_thin = medianfilter(img_thin);
 end
 
-
+%Skelettierung
 cd thin
-img_thin = thin(img_thin,0);
+img_thin = thin(img_thin,prune);
 cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
