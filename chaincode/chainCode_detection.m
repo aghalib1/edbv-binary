@@ -32,7 +32,7 @@ processed = [];
 [r,c] = find(img);
 foreground = [c,r];
 
-imshow(img)
+%imshow(img)
 
 %go through all foreground points
 for i=1:size(foreground,1)
