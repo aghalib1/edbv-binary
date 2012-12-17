@@ -9,6 +9,7 @@
 % Authors
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
+% Wiplinger Sascha 0702060
 
 %Version: 17.12.2012
 
@@ -17,7 +18,7 @@ clc;
 
 %if testmode is active, the folder testPictures will be read
 %else the normal pictures Folder
-test=1;
+test=0;
 A=getPictures(test);
 
 %use chain code (= 1) or hough detection (= 0) ?
@@ -34,7 +35,10 @@ for i = 1 : size( A, 1 )
   
     if ~isempty(A(i,1))
     figure;
+    TID = tic;
     analyze(A(i,1),A(i,2),med,chain, prune); 
+    
+    disp(['Laufzeit: ', num2str(toc(TID))]); %Display total runtime per picture
     end
     
 end
