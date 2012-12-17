@@ -55,6 +55,7 @@ end
 %Skelettierung
 cd thin
 img_thin = thin(img_thin,prune);
+
 cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -65,19 +66,20 @@ if chain
     cd ..
 else
     %%
-    %TODO
-    %Gute Werte für Hough Transformation finden
     
     cd hough
-    subplot(4,1,1);
+  %  subplot(4,1,1);
     zeros = hough_circles(img_thin,4.8,8);
-    subplot(4,1,2);
+  %  subplot(4,1,2);
     %ones = hough_circles(img_thin,0,8);
-    ones = hough_lines(img_thin,-5,5);
-    subplot(4,1,3);
+    ones = hough_lines(img_thin,-1,1);
+  % subplot(4,1,3);
     plus = hough_plus(img_thin,5,15);
+    %minus = hough_circles(img_thin,5,0);
+    mult=[];
+    minus=[];
     cd ..
-    subplot(4,1,4);
+  %  subplot(4,1,4);
     
     if size(ones,1)>0
         if size(zeros,1)>0
@@ -87,8 +89,12 @@ else
         end
     end
     
+    
+    
 end
 
+
+imshow(img);
 %%
 %SETTING MARKER
 
