@@ -1,5 +1,4 @@
 function [ bwimg ] = bw (img, thresh, bg)
-
     bwimg = ones(size(img,1),size(img,2));
     for y = 1:size(img,2)
         for x = 1:size(img,1)
@@ -11,7 +10,7 @@ function [ bwimg ] = bw (img, thresh, bg)
             end
         end
     end
-    if(bg > thresh)
+    if median(single(bwimg(:)))==1
         bwimg = 1-bwimg;
     end
 end
