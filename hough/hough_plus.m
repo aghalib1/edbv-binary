@@ -82,6 +82,7 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
     %merge nearby points, maybe use average pixel of all nearby pixels
     %now just the first pixel is chosen
     points = [x y];
+    if(size(points,1)>0)
     final_points = points(1,:);
     
     for i=2:size(points,1)
@@ -95,8 +96,10 @@ function [ final_points ] = hough_plus(img, scale, min_pixels)
             final_points(j+1,:)=points(i,:);
         end
     end
-    
-   size(houghRaum)
+    else
+        final_points=[x y];
+    end
+   %size(houghRaum)
 
 end
 
