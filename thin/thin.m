@@ -1,12 +1,13 @@
-%Manuel Kröter
-%Sascha Wiplinger
+%Manuel Kröter 0820478
+%Sascha Wiplinger 0702060
 %
 %Version: 3.12.2012
 %Function thin
 %
 %Skeletizes a black-white-image.
-%Input: a black and white image; white == foreground, black == background
-%       prune   how much should the result be pruned? 'prune' has to be an integer
+%Input: img     a black and white image; white == foreground, black == background
+%       prune   how much should the result be pruned? 'prune' has to be an
+%               integer >=0.
 %               0 = no pruning
 %
 %Output: the thinned black and white picture.
@@ -15,6 +16,7 @@ function [ thinned ] = thin( img, prune )
 
 thinned = img;
 
+%Kernels for Thinning
 S1 = [-1,-1,-1;
        0,1,0;
        1,1,1];
@@ -22,6 +24,7 @@ S2 = [-1,-1,0;
       -1,1,1;
        0,1,1]; 
 
+%Kernels for Pruning - actually not needed anymore, because results did get worse with pruning.
 P1 =  [-1,-1,-1;
        -1, 1,-1;
        -1, 0, 0];
@@ -39,7 +42,7 @@ while changed && cc < 20;
     changed = 0;
     cc = cc + 1;
 
-    for i=1:4
+    for i=1:4 %look for hits with kernel 1 at 0, 90, 180 and 270 degrees rotated.
         markMatrix = bwmatch(thinned,S1);
         if sum(markMatrix(:)) > 0
             changed = 1;
@@ -49,7 +52,7 @@ while changed && cc < 20;
     end
     
     
-    for i=1:4
+    for i=1:4 %same here with kernel 2
         markMatrix = bwmatch(thinned,S2);
         if sum(markMatrix(:)) > 0
             changed = 1;
@@ -61,7 +64,8 @@ while changed && cc < 20;
 end
 
 
-%Pruning
+%Pruning - works similar to normal thinning, but the loop goes from 1 to
+%prune (parameter)
 
 for i=1:prune
 
