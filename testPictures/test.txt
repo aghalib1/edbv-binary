@@ -29,6 +29,8 @@ von +5 bis 0 in einerschritten im urzeigersinn gedreht
 size16-26
 in 2erschritten von 16 auf 26 schritgröße
 
-ALLE ARIAL außer
-test_Calibri_36px_bw(nicht von mir)
+Wiplinger Sascha:
+fonts
+testet die Robustheit von chaincode und houghtransformation bei unterschiedlichen Fonts, konkret:
+Verdana, Times New Roman, Courier New.
 
