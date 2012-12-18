@@ -63,20 +63,21 @@ function [ final_points ] = hough_circles(img, radius_x, radius_y)
     %merge nearby points, maybe use average pixel of all nearby pixels
     %now just the first pixel is chosen
     points = [x y];
-    final_points = points(1,:);
-    for i=2:size(points,1)
-        insert = 1;
-        for j=1:size(final_points,1)
-            if abs(sqrt(final_points(j,1)^2+final_points(j,2)^2)-sqrt(points(i,1)^2+points(i,2)^2))<3 %which threshold distance?
-                insert = 0;
+    if(size(points,1)>0)
+        final_points = points(1,:);
+        for i=2:size(points,1)
+            insert = 1;
+            for j=1:size(final_points,1)
+                if abs(sqrt(final_points(j,1)^2+final_points(j,2)^2)-sqrt(points(i,1)^2+points(i,2)^2))<3 %which threshold distance?
+                    insert = 0;
+                end
+            end
+            if insert == 1
+                final_points(j+1,:)=points(i,:);
             end
         end
-        if insert == 1
-            final_points(j+1,:)=points(i,:);
-        end
+        
     end
-    
-    
     final_points=[x y];
 
 end
