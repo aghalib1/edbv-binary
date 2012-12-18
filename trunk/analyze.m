@@ -8,7 +8,7 @@
 
 
 
-function [ ] = analyze(picture,filename,med,chain,prune)
+function [ ] = analyze(picture,filename,med,chain)
 %ANALYZE Main function for binary calculator
 %   Detects binary numbers and an operator and computes the result
 %   
@@ -54,7 +54,7 @@ end
 
 %Skelettierung
 cd thin
-img_thin = thin(img_thin,prune);
+img_thin = thin(img_thin,0);
 
 cd ..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

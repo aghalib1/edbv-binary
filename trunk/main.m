@@ -9,7 +9,6 @@
 % Authors
 % Höller Benjamin 0925688
 % Manuel Kröter 0820478
-% Wiplinger Sascha 0702060
 
 %Version: 17.12.2012
 
@@ -27,16 +26,13 @@ chain = 0;
 %use Medianfilter (=1) or not (=0)
 med = 0;
 
-%use Pruning (=1:n) for amount of Iterations or not (=0)
-prune = 0;
-
 %analyze every picture
 for i = 1 : size( A, 1 )
   
     if ~isempty(A(i,1))
     figure;
     TID = tic;
-    analyze(A(i,1),A(i,2),med,chain, prune); 
+    analyze(A(i,1),A(i,2),med,chain); 
     
     disp(['Laufzeit: ', num2str(toc(TID))]); %Display total runtime per picture
     end
