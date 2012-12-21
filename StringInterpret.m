@@ -81,16 +81,16 @@ if (S(1)) ~= '+' || '-' || 'x'
             
             
             if (negative) == false
-                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'=',num2str(dezResult));
                 binaryAusgabe = strcat('Binary: ',zahl1,operator,zahl2,'=',num2str(binResult));
+                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'=',num2str(dezResult));
             else
-                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'= -',num2str(dezResult));
                 binaryAusgabe = strcat('Binary: ',zahl1,operator,zahl2,'= -',num2str(binResult));
+                dezAusgab = strcat('Decimal: ',num2str(dec1),operator,num2str(dec2),'= -',num2str(dezResult));
             end
                 
                 
-            disp(dezAusgab);
             disp(binaryAusgabe);
+            disp(dezAusgab);
             
         end
         %Wenn mehr als 1 Operator vorkommt
@@ -109,29 +109,29 @@ if (S(1)) ~= '+' || '-' || 'x'
     end
     %Wenn am Ende ein Operator steht
     if strfind(S,'+') == length(S)
-        disp('Error: Plus at the End of the String');
+        disp('Warning: Plus at the End, assuming 0 for missing Operand.');
     end
     
     if strfind(S,'-') == length(S)
-        disp('Error: Minus at the End of the String');
+        disp('Warning: Minus at the End, assuming 0 for missing Operand.');
     end
     
     if strfind(S,'x') == length(S)
-        disp('Error: Multiple at the End of the String');
+        disp('Warning: Multiple at the End, assuming 0 for missing Operand.');
     end
 end
 %%
 %Wenn am Anfang ein Operator steht
 if strfind(S,'+') == 1
-    disp('Error: Plus at the Beginning of the String');
+    disp('Warning: Plus at the Beginning, assuming 0 for missing Operand.');
 end
 
 if strfind(S,'-') == 1
-    disp('Error: Minus at the Beginning of the String');
+    disp('Warning: Minus at the Beginning, assuming 0 for missing Operand.');
 end
 
 if strfind(S,'x') == 1
-    disp('Error: Multiple at the Beginning of the String');
+    disp('Warning: Multiple at the Beginning, assuming 0 for missing Operand.');
 end
 end
 
