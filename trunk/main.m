@@ -21,7 +21,7 @@ test=1;
 A=getPictures(test);
 
 %use chain code (= 1) or hough detection (= 0) ?
-chain = 0;
+chain = 1;
 
 %use Medianfilter (=1) or not (=0)
 med = 0;
