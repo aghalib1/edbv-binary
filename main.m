@@ -17,7 +17,7 @@ clc;
 
 %if testmode is active, the folder testPictures will be read
 %else the normal pictures Folder
-test=1;
+test = 0;
 A=getPictures(test);
 
 %use chain code (= 1) or hough detection (= 0) ?
